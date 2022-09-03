@@ -1,15 +1,16 @@
 var toDoInput = document.querySelector("#todo-input");
 var addBtn = document.querySelector("#add-button");
+var saveBtn = document.querySelector("#save-button");
 var toDoList = document.querySelector("#todo-list");
 
 var todDoArr = [];
 
 addBtn.addEventListener('click', (e) => {
 
-    if (!todDoArr.includes(toDoInput.value) && !toDoInput.value == '') {
+    if (!toDoInput.value.trim() == '') {
         var toDoItem = document.createElement("li");
         var toDoDesc = document.createElement("h2");
-        var toDoAction = document.createElement("span");
+        var toDoActions = document.createElement("span");
         var deleteBtn = document.createElement("button");
         var editBtn = document.createElement("button");
 
@@ -17,15 +18,22 @@ addBtn.addEventListener('click', (e) => {
 
         toDoList.appendChild(toDoItem);
         toDoItem.appendChild(toDoDesc);
-        toDoItem.appendChild(toDoAction);
-        toDoAction.appendChild(editBtn);
-        toDoAction.appendChild(deleteBtn);
+        toDoItem.appendChild(toDoActions);
+        toDoActions.appendChild(editBtn);
+        toDoActions.appendChild(deleteBtn);
 
-q
+        todDoArr.push({
+            id: Math.floor(Math.random() * 100).toString(),
+            title: toDoInput.value.trim(),
+        });
+        todDoArr.forEach((item) => {
+            toDoItem.setAttribute('id', item.id)
+            toDoDesc.innerHTML = item.title;
+            toDoInput.value = '';
+        })
 
-        toDoDesc.innerHTML = toDoInput.value;
-        todDoArr.push(toDoInput.value);
-        toDoInput.value = '';
+
+
 
         editBtn.innerHTML = 'Edit';
         deleteBtn.innerHTML = 'X';
@@ -33,15 +41,13 @@ q
 
         editBtn.addEventListener('click', () => {
             toDoInput.value = toDoDesc.innerHTML;
+            saveBtn.style.display = 'inline-block';
+            addBtn.style.display = 'none';
 
-            addBtn.innerHTML = 'Save';
-            addBtn.addEventListener('click', () => {
-                addBtn.innerHTML = 'Add'
-                toDoItem.remove()
-                if (!toDoInput.value == '') {
-                    toDoDesc.innerHTML = toDoInput.value;
-                    toDoInput.value = '';
-                }
+            saveBtn.addEventListener('click', () => {
+                saveBtn.style.display = 'none';
+                addBtn.style.display = 'inline-block';
+                toDoDesc.innerText = toDoInput.value;
             })
         })
 
@@ -52,7 +58,6 @@ q
     }
 
 
-    console.log(todDoArr)
 
 })
 

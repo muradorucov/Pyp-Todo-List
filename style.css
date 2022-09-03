@@ -40,7 +40,7 @@ input {
     width: 50%;
 }
 
-#add-button {
+#add-button,#save-button {
     font-size: 24px;
     padding: 8px 12px;
     border-radius: 8px;
@@ -48,7 +48,9 @@ input {
     transition: 0.5s;
     cursor: pointer;
 }
-
+#save-button{
+    display: none;
+}
 #add-button:disabled {
     background-color: revert;
     cursor: default;
